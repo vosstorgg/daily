@@ -1,3 +1,5 @@
+print("✅ Бот запущен")
+
 from telegram.ext import ApplicationBuilder
 from handlers import register_handlers
 from config import BOT_TOKEN
