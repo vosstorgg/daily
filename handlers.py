@@ -58,6 +58,7 @@ async def finish_registration(update: Update, context: ContextTypes.DEFAULT_TYPE
     # Сохраняем в БД
     await save_user(
         telegram_id=update.effective_user.id,
+        username=telegram_user.username,
         name=context.user_data['name'],
         birth_date=context.user_data['birth_date'],
         birth_time=context.user_data['birth_time'],
