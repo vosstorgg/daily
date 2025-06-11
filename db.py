@@ -1,6 +1,21 @@
 import asyncpg
 from config import DB_URL
 
+async def init_db():
+    conn = await asyncpg.connect(DB_URL)
+    await conn.execute("""
+        CREATE TABLE IF NOT EXISTS users (
+            id SERIAL PRIMARY KEY,
+            telegram_id BIGINT UNIQUE NOT NULL,
+            name TEXT NOT NULL,
+            birth_date DATE NOT NULL,
+            birth_time TIME,
+            birth_place TEXT,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        );
+    """)
+    await conn.close()
+
 async def save_user(telegram_id, name, birth_date, birth_time, birth_place):
     conn = await asyncpg.connect(DB_URL)
     await conn.execute("""
