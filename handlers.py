@@ -80,6 +80,4 @@ def register_handlers(app):
         fallbacks=[],
     )
     app.add_handler(conv)
-
-    )
-    app.add_handler(conv)
+    
