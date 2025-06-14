@@ -6,5 +6,5 @@ BOT_TOKEN = os.getenv("BOT_TOKEN")
 
 application = ApplicationBuilder().token(BOT_TOKEN).build()
 
-# Register handlers
+print(">> Adding handler: /start")
 application.add_handler(start_handler)

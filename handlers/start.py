@@ -1,6 +1,6 @@
 from telegram import Update
 from telegram.ext import CommandHandler, ContextTypes
-from gpt_client import ask_gpt  # not used yet
+from gpt_client import ask_gpt
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     print(">> /start triggered")

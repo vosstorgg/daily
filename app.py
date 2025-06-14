@@ -17,10 +17,9 @@ async def webhook():
     await application.process_update(update)
     return 'ok', 200
 
-# 👇 Выполняем сразу, без __main__
 async def startup():
     await setup_webhook()
     await application.initialize()
     await application.start()
 
-asyncio.run(startup())  # 👈 Запускается даже при gunicorn
+asyncio.run(startup())
