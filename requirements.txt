@@ -5,3 +5,4 @@ openai
 sqlalchemy[asyncio]
 asyncpg
 geopy
+psycopg2-binary
