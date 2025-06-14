@@ -21,3 +21,4 @@ async def telegram_webhook(req: Request):
 async def on_startup():
     await setup_webhook()
     await application.initialize()
+    await application.start()
