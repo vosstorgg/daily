@@ -19,7 +19,8 @@ def webhook():
 
 async def startup():
     await setup_webhook()
-    await application.initialize()  # 👈 ВАЖНО: запускает PTB lifecycle
+    await application.initialize()
+    await application.start()
 
 if __name__ == '__main__':
     asyncio.run(startup())
