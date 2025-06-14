@@ -12,10 +12,13 @@ def index():
 
 @app.route('/webhook', methods=['POST'])
 async def webhook():
-    update = Update.de_json(request.get_json(force=True), application.bot)
-    print(">> RAW update:", update)
-    asyncio.create_task(application.process_update(update))  # обработка в фоне
-    return 'ok', 200  # ⏱️ отвечаем сразу
+    try:
+        update = Update.de_json(request.get_json(force=True), application.bot)
+        print(">> RAW update:", update)
+        asyncio.create_task(application.process_update(update))  # фоновая обработка
+    except Exception as e:
+        print(">> ERROR in webhook:", e)
+    return 'ok', 200  # мгновенный ответ Telegram
 
 async def startup():
     await setup_webhook()
