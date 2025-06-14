@@ -1,28 +1,24 @@
-from flask import Flask, request
+from fastapi import FastAPI, Request
 import asyncio
+from bot import application
 from telegram import Update
 from webhook import setup_webhook
-from bot import application
 
-app = Flask(__name__)
+app = FastAPI()
 
-@app.route('/')
+@app.get("/")
 def index():
-    return 'Bot is running!'
+    return {"message": "Bot is running!"}
 
-@app.route('/webhook', methods=['POST'])
-async def webhook():
-    try:
-        update = Update.de_json(request.get_json(force=True), application.bot)
-        print(">> RAW update:", update)
-        asyncio.create_task(application.process_update(update))  # фоновая обработка
-    except Exception as e:
-        print(">> ERROR in webhook:", e)
-    return 'ok', 200  # мгновенный ответ Telegram
+@app.post("/webhook")
+async def telegram_webhook(req: Request):
+    data = await req.json()
+    update = Update.de_json(data, application.bot)
+    await application.process_update(update)
+    return {"ok": True}
 
-async def startup():
+@app.on_event("startup")
+async def on_startup():
     await setup_webhook()
     await application.initialize()
     await application.start()
-
-asyncio.run(startup())

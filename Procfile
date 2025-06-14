@@ -1,1 +1,1 @@
-web: gunicorn -b 0.0.0.0:8000 app:app
+web: uvicorn app:app --host 0.0.0.0 --port 8000
