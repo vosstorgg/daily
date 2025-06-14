@@ -14,8 +14,8 @@ def index():
 async def webhook():
     update = Update.de_json(request.get_json(force=True), application.bot)
     print(">> RAW update:", update)
-    await application.process_update(update)
-    return 'ok', 200
+    asyncio.create_task(application.process_update(update))  # обработка в фоне
+    return 'ok', 200  # ⏱️ отвечаем сразу
 
 async def startup():
     await setup_webhook()
