@@ -6,10 +6,6 @@ from webhook import setup_webhook
 
 app = FastAPI()
 
-@app.get("/")
-def index():
-    return {"message": "Bot is running!"}
-
 @app.post("/webhook")
 async def telegram_webhook(req: Request):
     data = await req.json()
