@@ -19,9 +19,9 @@ async def telegram_webhook(req: Request):
 
 @app.on_event("startup")
 async def on_startup():
+    import models.astro_data
     await setup_webhook()
     await application.initialize()
-    await application.start()
 
 @app.get("/")
 async def health_check():
