@@ -1,9 +1,9 @@
 import os
-import telegram
+from telegram import Bot
 
 BOT_TOKEN = os.getenv("BOT_TOKEN")
-WEBHOOK_URL = os.getenv("WEBHOOK_URL")  # e.g., https://yourproject.up.railway.app/webhook
+WEBHOOK_URL = os.getenv("WEBHOOK_URL")
 
-def setup_webhook():
-    bot = telegram.Bot(BOT_TOKEN)
-    bot.set_webhook(url=WEBHOOK_URL)
+async def setup_webhook():
+    bot = Bot(BOT_TOKEN)
+    await bot.set_webhook(url=WEBHOOK_URL)
