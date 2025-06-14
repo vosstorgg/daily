@@ -22,3 +22,7 @@ async def on_startup():
     await setup_webhook()
     await application.initialize()
     await application.start()
+
+@app.get("/")
+async def health_check():
+    return {"status": "ok"}
