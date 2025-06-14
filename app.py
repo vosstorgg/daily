@@ -1,5 +1,6 @@
 from flask import Flask, request
 import asyncio
+from telegram import Update
 from webhook import setup_webhook
 from bot import application
 
@@ -10,17 +11,15 @@ def index():
     return 'Bot is running!'
 
 @app.route('/webhook', methods=['POST'])
-def webhook():
-    if request.method == "POST":
-        update = request.get_json(force=True)
-        print(">> RAW update:", update)
-        application.update_queue.put_nowait(update)
-        return 'ok', 200
+async def webhook():
+    update = Update.de_json(request.get_json(force=True), application.bot)
+    print(">> RAW update:", update)
+    await application.process_update(update)
+    return 'ok', 200
 
 async def startup():
     await setup_webhook()
     await application.initialize()
-    await application.start()
 
 if __name__ == '__main__':
     asyncio.run(startup())
