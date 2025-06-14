@@ -13,6 +13,7 @@ def index():
 def webhook():
     if request.method == "POST":
         update = request.get_json(force=True)
+        print(">> RAW update:", update)  # 👈 логируем весь апдейт
         application.update_queue.put_nowait(update)
         return 'ok', 200
 
