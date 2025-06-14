@@ -2,7 +2,7 @@
 import asyncio
 from db import engine, Base
 from models.user_location import UserLocation
-from models.astro_data.py import AstroData
+from models.astro_data import AstroData
 
 async def init_db():
     print("📦 Модели для создания:", Base.metadata.tables.keys())
