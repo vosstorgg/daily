@@ -1,4 +1,5 @@
 from flask import Flask, request
+import asyncio
 from webhook import setup_webhook
 from bot import application
 
@@ -16,5 +17,5 @@ def webhook():
         return 'ok', 200
 
 if __name__ == '__main__':
-    setup_webhook()
+    asyncio.run(setup_webhook())
     app.run(host='0.0.0.0', port=8000)
