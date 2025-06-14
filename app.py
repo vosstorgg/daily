@@ -13,9 +13,13 @@ def index():
 def webhook():
     if request.method == "POST":
         update = request.get_json(force=True)
-        print(">> RAW update:", update)  # 👈 логируем весь апдейт
+        print(">> RAW update:", update)
         application.update_queue.put_nowait(update)
         return 'ok', 200
 
+async def startup():
+    await setup_webhook()
+    await application.initialize()  # 👈 ВАЖНО: запускает PTB lifecycle
+
 if __name__ == '__main__':
-    asyncio.run(setup_webhook())
+    asyncio.run(startup())
